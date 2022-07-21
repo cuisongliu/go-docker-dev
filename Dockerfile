@@ -1,7 +1,10 @@
 FROM golang:1.17.12
 MAINTAINER cuisongliu
 
-ADD fs/ /
+USER root
+ENV HOME /root
+
+ADD vim/ /root/
 
 # install pagkages
 RUN apt-get update                                                      && \
@@ -42,10 +45,5 @@ RUN go get golang.org/x/tools/cmd/godoc                                 && \
 #    echo "ALL            ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers     && \
 #    chown -R dev:dev /home/dev /go
 
-USER root
-ENV HOME /root
-
 # install vim plugins
-RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
-    vim +PlugInstall +qall
+RUN vim +PlugInstall +qall
