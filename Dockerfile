@@ -6,8 +6,7 @@ ENV HOME /root
 
 WORKDIR /root
 
-COPY vim/.vim/ ./.vim/
-COPY vim/.vimrc ./.vimrc
+COPY vim/ .
 
 # install pagkages
 RUN apt-get update                                                      && \
