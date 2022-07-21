@@ -4,7 +4,9 @@ MAINTAINER cuisongliu
 USER root
 ENV HOME /root
 
-ADD vim/ /root/
+WORKDIR /root
+
+ADD vim/ .
 
 # install pagkages
 RUN apt-get update                                                      && \
