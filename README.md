@@ -18,7 +18,7 @@ Run this image from within your go workspace. You can than edit your project usi
 
 ```
 cd your/go/workspace
-docker run --rm -tiv `pwd`:/go mbrt/golang-vim-dev
+docker run --rm -tiv `pwd`:/go ghcr.io/cuisongliu/go-docker-dev:1.17.12
 ```
 
 ## Limitations
