@@ -1,17 +1,22 @@
-FROM golang:1.17.12
+FROM --platform=${BUILDPLATFORM} golang:1.18.4
 MAINTAINER cuisongliu
 
 USER root
 ENV HOME /root
+ENV kubeVersion 1.24.3
+ENV ttydVersion 1.6.3
 
+ARG TARGETARCH
 WORKDIR /root
 
 COPY vim/ .
 
+COPY start-terminal.sh /usr/bin/
+COPY ttyd-kubectl.sh /usr/bin/
 # install pagkages
 RUN apt-get update                                                      && \
     apt-get install -y ncurses-dev libtolua-dev exuberant-ctags gdb     && \
-    apt-get install -y ca-certificates curl wget                        && \
+    apt-get install -y ca-certificates curl wget bind-utils             && \
     apt-get install -y git g++ gcc libc6-dev make pkg-config vim        && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -25,6 +30,9 @@ RUN apt-get update                                                      && \
 #    make install                                                        && \
 ## cleanup
 #    rm -rf /tmp/* /var/tmp/*
+
+RUN chmod a+x /usr/bin/ttyd-kubectl.sh && bash /usr/bin/ttyd-kubectl.sh
+
 
 # get go tools
 RUN go get golang.org/x/tools/cmd/godoc                                 && \
@@ -48,4 +56,13 @@ RUN go get golang.org/x/tools/cmd/godoc                                 && \
 #    chown -R dev:dev /home/dev /go
 
 # install vim plugins
-RUN vim +PlugInstall +qall
+RUN vim +PlugInstall +qall && chmod a+x /usr/bin/start-terminal.sh
+
+ENV USER_TOKEN ""
+ENV APISERVER "https://apiserver.cluster.local:6443"
+ENV USER_NAME "admin"
+ENV NAMESPACE "default"
+
+EXPORT 8080
+
+CMD ["sh","/usr/bin/start-terminal.sh"]
