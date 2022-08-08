@@ -35,17 +35,17 @@ RUN chmod a+x /usr/bin/ttyd-kubectl.sh && bash /usr/bin/ttyd-kubectl.sh
 
 
 # get go tools
-RUN go get golang.org/x/tools/cmd/godoc                                 && \
-    go get github.com/nsf/gocode                                        && \
-    go get golang.org/x/tools/cmd/goimports                             && \
-    go get github.com/rogpeppe/godef                                    && \
-    go get golang.org/x/tools/cmd/gorename                              && \
-    go get github.com/kisielk/errcheck                                  && \
-    go get github.com/go-delve/delve/cmd/dlv                            && \
-    GO111MODULE=on go get golang.org/x/tools/gopls@latest               && \
-    mv /go/bin/* /usr/local/go/bin                                      && \
+RUN    go get golang.org/x/tools/cmd/godoc
+RUN    go get github.com/nsf/gocode
+RUN    go get golang.org/x/tools/cmd/goimports
+RUN    go get github.com/rogpeppe/godef
+RUN    go get golang.org/x/tools/cmd/gorename
+RUN    go get github.com/kisielk/errcheck
+RUN    go get github.com/go-delve/delve/cmd/dlv
+RUN    GO111MODULE=on go get golang.org/x/tools/gopls@latest
+RUN    mv /go/bin/* /usr/local/go/bin
 # cleanup
-    rm -rf /go/src/* /go/pkg
+RUN    rm -rf /go/src/* /go/pkg
 
 # add dev user
 #RUN adduser dev --disabled-password --gecos ""                          && \
