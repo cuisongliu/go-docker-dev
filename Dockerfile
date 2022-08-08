@@ -63,6 +63,6 @@ ENV APISERVER "https://apiserver.cluster.local:6443"
 ENV USER_NAME "admin"
 ENV NAMESPACE "default"
 
-EXPORT 8080
+EXPOSE 8080
 
 CMD ["sh","/usr/bin/start-terminal.sh"]
