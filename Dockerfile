@@ -35,7 +35,7 @@ RUN chmod a+x /usr/bin/ttyd-kubectl.sh && bash /usr/bin/ttyd-kubectl.sh
 
 
 # get go tools
-RUN    go get golang.org/x/tools/cmd/godoc
+#RUN    go get golang.org/x/tools/cmd/godoc
 RUN    go get github.com/nsf/gocode
 RUN    go get golang.org/x/tools/cmd/goimports
 RUN    go get github.com/rogpeppe/godef
