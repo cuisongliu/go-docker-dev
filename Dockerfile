@@ -40,10 +40,7 @@ RUN go get golang.org/x/tools/cmd/godoc                                 && \
     go get golang.org/x/tools/cmd/goimports                             && \
     go get github.com/rogpeppe/godef                                    && \
     go get golang.org/x/tools/cmd/gorename                              && \
-    go get golang.org/x/lint/golint                                     && \
     go get github.com/kisielk/errcheck                                  && \
-    go get github.com/jstemmer/gotags                                   && \
-    go get github.com/tools/godep                                       && \
     go get github.com/go-delve/delve/cmd/dlv                            && \
     GO111MODULE=on go get golang.org/x/tools/gopls@latest               && \
     mv /go/bin/* /usr/local/go/bin                                      && \
