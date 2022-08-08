@@ -16,7 +16,7 @@ COPY ttyd-kubectl.sh /usr/bin/
 # install pagkages
 RUN apt-get update                                                      && \
     apt-get install -y ncurses-dev libtolua-dev exuberant-ctags gdb     && \
-    apt-get install -y ca-certificates curl wget bind-utils             && \
+    apt-get install -y ca-certificates curl wget bind9-utils            && \
     apt-get install -y git g++ gcc libc6-dev make pkg-config vim        && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
