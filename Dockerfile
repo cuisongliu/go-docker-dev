@@ -36,13 +36,13 @@ RUN chmod a+x /usr/bin/ttyd-kubectl.sh && bash /usr/bin/ttyd-kubectl.sh
 
 # get go tools
 #RUN    go get golang.org/x/tools/cmd/godoc
-RUN    go get github.com/nsf/gocode
-RUN    go get golang.org/x/tools/cmd/goimports
-RUN    go get github.com/rogpeppe/godef
-RUN    go get golang.org/x/tools/cmd/gorename
-RUN    go get github.com/kisielk/errcheck
-RUN    go get github.com/go-delve/delve/cmd/dlv
-RUN    GO111MODULE=on go get golang.org/x/tools/gopls@latest
+RUN    go install github.com/nsf/gocode@latest
+RUN    go install golang.org/x/tools/cmd/goimports@latest
+RUN    go install github.com/rogpeppe/godef@latest
+RUN    go install golang.org/x/tools/cmd/gorename@latest
+RUN    go install github.com/kisielk/errcheck@latest
+RUN    go install github.com/go-delve/delve/cmd/dlv@latest
+RUN    GO111MODULE=on go install golang.org/x/tools/gopls@latest
 RUN    mv /go/bin/* /usr/local/go/bin
 # cleanup
 RUN    rm -rf /go/src/* /go/pkg
