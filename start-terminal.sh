@@ -1,7 +1,5 @@
 #!/bin/bash
 
-ttyd -p 8080 bash
-
 mkdir -p /root/.kube
 
 cat > .kube/config <<EOF
@@ -25,3 +23,5 @@ users:
   user:
     token: $USER_TOKEN
 EOF
+
+ttyd -p 8080 bash
