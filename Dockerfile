@@ -14,47 +14,22 @@ COPY vim/ .
 COPY start-terminal.sh /usr/bin/
 COPY ttyd-kubectl.sh /usr/bin/
 # install pagkages
-RUN arch                                                                && \
-    apt-get update                                                      && \
-    apt-get install -y ncurses-dev libtolua-dev exuberant-ctags gdb     && \
-    apt-get install -y ca-certificates curl wget bind9-utils            && \
-    apt-get install -y git g++ gcc libc6-dev make pkg-config vim        && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# build and install vim
-#RUN cd /tmp                                                             && \
-#    git clone --depth 1 https://github.com/vim/vim.git                  && \
-#    cd vim                                                              && \
-#    ./configure --with-features=huge --enable-luainterp                    \
-#        --enable-gui=no --without-x --prefix=/usr                       && \
-#    make VIMRUNTIMEDIR=/usr/share/vim/vim82                             && \
-#    make install                                                        && \
-## cleanup
-#    rm -rf /tmp/* /var/tmp/*
-
-RUN chmod a+x /usr/bin/ttyd-kubectl.sh && bash /usr/bin/ttyd-kubectl.sh
-
-
-# get go tools
-#RUN    go get golang.org/x/tools/cmd/godoc
-RUN    go install github.com/nsf/gocode@latest
-RUN    go install golang.org/x/tools/cmd/goimports@latest
-RUN    go install github.com/rogpeppe/godef@latest
-RUN    go install golang.org/x/tools/cmd/gorename@latest
-RUN    go install github.com/kisielk/errcheck@latest
-RUN    go install github.com/go-delve/delve/cmd/dlv@latest
-RUN    GO111MODULE=on go install golang.org/x/tools/gopls@latest
-RUN    mv /go/bin/* /usr/local/go/bin
-# cleanup
-RUN    rm -rf /go/src/* /go/pkg
-
-# add dev user
-#RUN adduser dev --disabled-password --gecos ""                          && \
-#    echo "ALL            ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers     && \
-#    chown -R dev:dev /home/dev /go
-
-# install vim plugins
-RUN vim +PlugInstall +qall && chmod a+x /usr/bin/start-terminal.sh
+RUN arch                                                                 && \
+    apt-get update                                                       && \
+    apt-get install -y ncurses-dev libtolua-dev exuberant-ctags gdb      && \
+    apt-get install -y ca-certificates curl wget bind9-utils             && \
+    apt-get install -y git g++ gcc libc6-dev make pkg-config vim         && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*                         && \
+    chmod a+x /usr/bin/ttyd-kubectl.sh && bash /usr/bin/ttyd-kubectl.sh  && \
+    go install github.com/nsf/gocode@latest                              && \
+    go install golang.org/x/tools/cmd/goimports@latest                   && \
+    go install github.com/rogpeppe/godef@latest                          && \
+    go install golang.org/x/tools/cmd/gorename@latest                    && \
+    go install github.com/kisielk/errcheck@latest                        && \
+    go install github.com/go-delve/delve/cmd/dlv@latest                  && \
+    GO111MODULE=on go install golang.org/x/tools/gopls@latest            && \
+    mv /go/bin/* /usr/local/go/bin && rm -rf /go/src/* /go/pkg           && \
+    vim +PlugInstall +qall && chmod a+x /usr/bin/start-terminal.sh
 
 ENV USER_TOKEN ""
 ENV APISERVER "https://apiserver.cluster.local:6443"
