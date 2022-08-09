@@ -14,7 +14,7 @@ COPY vim/ .
 COPY start-terminal.sh /usr/bin/
 COPY ttyd-kubectl.sh /usr/bin/
 # install pagkages
-RUN file /bin/bash                                                      && \
+RUN arch                                                                && \
     apt-get update                                                      && \
     apt-get install -y ncurses-dev libtolua-dev exuberant-ctags gdb     && \
     apt-get install -y ca-certificates curl wget bind9-utils            && \
