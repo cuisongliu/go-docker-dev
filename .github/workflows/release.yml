@@ -33,15 +33,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: build (and publish) main image
-        env:
-          # fork friendly ^^
-          DOCKER_REPO: ghcr.io/${{ github.repository_owner }}/go-docker-dev
-        run: |
-          docker buildx build \
-            --platform linux/amd64,linux/arm64 \
-            --build-arg VERSION=${{ steps.prepare.outputs.tag_name }} \
-            --push \
-            -t ${DOCKER_REPO}:${{ steps.prepare.outputs.tag_name }} \
-            -f Dockerfile \
-            .
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ghcr.io/${{ github.repository_owner }}/go-docker-dev:${{ steps.prepare.outputs.tag_name }}
