@@ -1,6 +1,6 @@
 ARG goVersion=1.18.4
 ARG TARGETARCH
-FROM --platform=linux/${TARGETARCH} golang:$goVersion
+FROM golang:$goVersion
 MAINTAINER cuisongliu
 
 USER root
