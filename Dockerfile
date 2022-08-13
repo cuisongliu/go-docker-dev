@@ -1,10 +1,11 @@
-FROM --platform=${BUILDPLATFORM} golang:1.18.4
+ARG goVersion=1.18.4
+FROM --platform=${BUILDPLATFORM} golang:$goVersion
 MAINTAINER cuisongliu
 
 USER root
 ENV HOME /root
-ENV kubeVersion 1.24.3
-ENV ttydVersion 1.6.3
+ARG kubeVersion=1.24.3
+ARG ttydVersion=1.6.3
 
 ARG TARGETARCH
 WORKDIR /root

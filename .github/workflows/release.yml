@@ -4,23 +4,15 @@ on:
   push:
     branches-ignore:
       - '**'
-    tags:
+    tags-ignore:
       - '*'
-
+  workflow_dispatch:
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@master
-
-
-      - name: Prepare
-        id: prepare
-        run: |
-          TAG=${GITHUB_REF#refs/tags/}
-          echo ::set-output name=tag_name::${TAG}
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         # https://github.com/docker/setup-buildx-action
@@ -38,6 +30,9 @@ jobs:
           docker buildx build \
             --platform linux/amd64,linux/arm64 \
             --push \
-            -t ghcr.io/${{ github.repository_owner }}/go-docker-dev:${{ steps.prepare.outputs.tag_name }} \
+            --build-arg goVersion=1.18.4 \
+            --build-arg kubeVersion=1.24.3 \
+            --build-arg ttydVersion=1.6.3
+            -t ghcr.io/${{ github.repository_owner }}/go-docker-dev:1.18.4 \
             -f Dockerfile \
             .
