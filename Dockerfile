@@ -1,5 +1,4 @@
 ARG goVersion=1.18.4
-ARG TARGETARCH
 FROM golang:$goVersion
 MAINTAINER cuisongliu
 
@@ -8,6 +7,7 @@ ENV HOME /root
 ARG kubeVersion=1.24.3
 ARG ttydVersion=1.6.3
 
+ARG TARGETARCH
 
 WORKDIR /root
 
