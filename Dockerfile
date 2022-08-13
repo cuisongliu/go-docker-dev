@@ -1,5 +1,6 @@
 ARG goVersion=1.18.4
-FROM --platform=${BUILDPLATFORM} golang:$goVersion
+ARG TARGETARCH
+FROM --platform=linux/${TARGETARCH} golang:$goVersion
 MAINTAINER cuisongliu
 
 USER root
@@ -7,7 +8,7 @@ ENV HOME /root
 ARG kubeVersion=1.24.3
 ARG ttydVersion=1.6.3
 
-ARG TARGETARCH
+
 WORKDIR /root
 
 COPY vim/ .
