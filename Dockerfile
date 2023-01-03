@@ -21,6 +21,10 @@ RUN arch                                                                 && \
     apt-get install -y ncurses-dev libtolua-dev exuberant-ctags gdb      && \
     apt-get install -y ca-certificates curl wget bind9-utils             && \
     apt-get install -y git g++ gcc libc6-dev make pkg-config vim         && \
+    apt-get install -y postgresql-client                                 && \
+    apt-get install -y dnsutils                                          && \
+    apt-get install -y iputils-ping                                      && \
+    apt-get install -y net-tools                                         && \
     apt-get clean && rm -rf /var/lib/apt/lists/*                         && \
     chmod a+x /usr/bin/ttyd-kubectl.sh && bash /usr/bin/ttyd-kubectl.sh  && \
     go install github.com/nsf/gocode@latest                              && \
