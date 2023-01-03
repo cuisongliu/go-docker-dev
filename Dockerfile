@@ -1,4 +1,4 @@
-ARG goVersion=1.18.4
+ARG goVersion=1.19.4
 FROM golang:$goVersion
 MAINTAINER cuisongliu
 
