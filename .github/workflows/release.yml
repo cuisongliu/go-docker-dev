@@ -7,6 +7,12 @@ on:
     tags-ignore:
       - '*'
   workflow_dispatch:
+    inputs:
+      goVersion:
+        description: 'go version'
+        required: true
+        default: 1.18.4
+
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
@@ -30,9 +36,9 @@ jobs:
           docker buildx build \
             --platform linux/amd64,linux/arm64 \
             --push \
-            --build-arg goVersion=1.18.4 \
+            --build-arg goVersion=${{ github.event.inputs.goVersion }} \
             --build-arg kubeVersion=1.24.3 \
             --build-arg ttydVersion=1.6.3 \
-            -t ghcr.io/${{ github.repository_owner }}/go-docker-dev:1.18.4 \
+            -t ghcr.io/${{ github.repository_owner }}/go-docker-dev:${{ github.event.inputs.goVersion }} \
             -f Dockerfile \
             .
